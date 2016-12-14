@@ -11,9 +11,9 @@ function rootReducer (state = initialState, action){
 		case GET_TASKS:
 		return Object.assign({}, state, { tasks: action.payload.tasks });
 		case ADD_TASK:
-		return addTaskReducer(state, actions);
+		return addTaskReducer(state, action);
 		case COMPLETE_TASK:
-		return completeTaskReducer(state, actions);
+		return completeTaskReducer(state, action);
 		default:
 		return state;
 	}

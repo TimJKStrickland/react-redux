@@ -31208,9 +31208,9 @@
 			case _actions.GET_TASKS:
 				return Object.assign({}, state, { tasks: action.payload.tasks });
 			case _actions.ADD_TASK:
-				return addTaskReducer(state, actions);
+				return addTaskReducer(state, action);
 			case _actions.COMPLETE_TASK:
-				return completeTaskReducer(state, actions);
+				return completeTaskReducer(state, action);
 			default:
 				return state;
 		}
@@ -31267,7 +31267,7 @@
 		id: 2,
 		type: 'habit',
 		text: 'drink water',
-		completed: false
+		completed: true
 	}, {
 		id: 3,
 		type: 'todo',
@@ -31374,7 +31374,7 @@
 
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'container' },
 					_react2.default.createElement(
 						'section',
 						null,
@@ -31387,7 +31387,7 @@
 							onCompleteTask: function onCompleteTask(task) {
 								return _this2.handleCompletedTask(task);
 							},
-							tasks: habits })
+							tasks: habits, type: 'habit' })
 					),
 					_react2.default.createElement(
 						'section',
@@ -31401,7 +31401,7 @@
 							onCompleteTask: function onCompleteTask(task) {
 								return _this2.handleCompletedTask(task);
 							},
-							tasks: dailies })
+							tasks: dailies, type: 'daily' })
 					),
 					_react2.default.createElement(
 						'section',
@@ -31415,7 +31415,7 @@
 							onCompleteTask: function onCompleteTask(task) {
 								return _this2.handleCompletedTask(task);
 							},
-							tasks: todos })
+							tasks: todos, type: 'todo' })
 					)
 				);
 			}
@@ -31456,6 +31456,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(496);
+
+	var _actions = __webpack_require__(506);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31474,29 +31478,62 @@
 		}
 
 		_createClass(TaskList, [{
+			key: 'addTask',
+			value: function addTask(taskText) {
+				var _props = this.props,
+				    dispatch = _props.dispatch,
+				    type = _props.type;
+
+
+				dispatch((0, _actions.addTask)(taskText, type));
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				var _props = this.props,
-				    onCompleteTask = _props.onCompleteTask,
-				    tasks = _props.tasks;
+				var _this2 = this;
 
+				var _props2 = this.props,
+				    onCompleteTask = _props2.onCompleteTask,
+				    tasks = _props2.tasks,
+				    type = _props2.type;
+
+
+				var newTask = void 0;
 				return _react2.default.createElement(
-					'ul',
+					'div',
 					null,
-					tasks.map(function (task) {
-						return _react2.default.createElement(
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
 							'li',
 							null,
+							_react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+									newTask = node;
+								} }),
 							_react2.default.createElement(
-								'span',
+								'a',
 								{ onClick: function onClick() {
-										onCompleteTask(task);
+										return _this2.addTask(newTask.value);
 									} },
-								' [ ]'
-							),
-							task.text
-						);
-					})
+								'+'
+							)
+						),
+						tasks.map(function (task) {
+							return _react2.default.createElement(
+								'li',
+								{ key: task.id, className: task.completed ? 'task completed' : 'task' },
+								_react2.default.createElement(
+									'span',
+									{ onClick: function onClick() {
+											onCompleteTask(task);
+										} },
+									' [ ]'
+								),
+								task.text
+							);
+						})
+					)
 				);
 			}
 		}]);
@@ -31504,7 +31541,11 @@
 		return TaskList;
 	}(_react.Component);
 
-	exports.default = TaskList;
+	function select(state) {
+		return {};
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(TaskList);
 
 /***/ }
 /******/ ]);

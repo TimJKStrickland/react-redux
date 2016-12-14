@@ -25,24 +25,24 @@ class App extends Component {
 		const { dispatch, habits, dailies, todos } = this.props;
 
 		return(
-			<div>
+			<div className="container">
 				<section>
 					<h3>Habits</h3>
 					<TaskList 
-					onCompleteTask= {(task) => this.handleCompletedTask(task)}
-					tasks = {habits} />
+					onCompleteTask = {(task) => this.handleCompletedTask(task)}
+					tasks = {habits} type="habit" />
 				</section>
 				<section>
 					<h3>Dailies</h3>
 					<TaskList
-					onCompleteTask= {(task) => this.handleCompletedTask(task)}
-					 tasks= {dailies} />
+					onCompleteTask = {(task) => this.handleCompletedTask(task)}
+					 tasks= {dailies} type="daily" />
 				</section>
 				<section>
 					<h3>ToDo's</h3>
 					<TaskList 
-					onCompleteTask= {(task) => this.handleCompletedTask(task)}
-					tasks= {todos} />
+					onCompleteTask = {(task) => this.handleCompletedTask(task)}
+					tasks= {todos} type="todo" />
 				</section>
 			</div>
 		)

@@ -14,7 +14,7 @@ const tasks = [
 		id: 2,
 		type: 'habit',
 		text: 'drink water',
-		completed: false
+		completed: true
 	},
 	{
 		id: 3,
