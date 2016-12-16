@@ -1,14 +1,17 @@
 .container {
-  max-width: 10rem;
+  max-width: 25em;
   margin: 0 auto; }
 
 h1 {
   font: Arial; }
 
 .task {
-  background-color: #9ab394;
+  background-color: #1199aa;
   list-style: none;
-  margin: 0; }
+  margin: 0;
+  font-family: Arial sans-serif;
+  padding: 0.25em 0.5em; }
 
 .completed {
-  background-color: #494949; }
+  background-color: #99ff99;
+  font-style: italic; }

@@ -1,32 +1,32 @@
 // action types: exported to variable for fewer errors
-export const GET_TASKS = 'GET_TASKS';
+import fetch from 'isomorphic-fetch';
+
+export const RECEIVE_TASKS = 'RECEIVE_TASKS';
 export const ADD_TASK = 'ADD_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 
-const tasks = [
-	{
-		id: 1,
-		type: 'daily',
-		text: 'meditate',
-		completed: false
-	},
-	{ 
-		id: 2,
-		type: 'habit',
-		text: 'drink water',
-		completed: true
-	},
-	{
-		id: 3,
-		type: 'todo',
-		text: 'exercise',
-		completed: false
-	}
-];
+import { uuId, apiToken } from './configure';
 
-export function getTasks(){
+
+export function fetchTasks(){
+	return function(dispatch){
+		return fetch('https://habitica.com/api/v3/tasks/user',
+			{
+				headers: {
+					'X-API-User': uuId,
+					'X-API-Key' : apiToken
+				}
+			})
+		.then(response => response.json())
+		.then((json) => {
+			dispatch(receiveTasks(json.data));
+		});
+	};
+}
+
+export function receiveTasks(tasks){
 	return{
-		type: GET_TASKS,
+		type: RECEIVE_TASKS,
 		payload: { 
 			tasks
 		}

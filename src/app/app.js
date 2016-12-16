@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTasks, completeTask } from './actions';
+import { fetchTasks, completeTask } from './actions';
 import TaskList from './tasklist';
+import Header from './header';
 
 class App extends Component {
 	
@@ -14,9 +15,10 @@ class App extends Component {
 		dispatch(completeTask(task.id));
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const { dispatch } =this.props;
-		dispatch(getTasks());
+
+		dispatch(fetchTasks());
 	}
 
 	render() {
@@ -26,6 +28,7 @@ class App extends Component {
 
 		return(
 			<div className="container">
+				<Header/>
 				<section>
 					<h3>Habits</h3>
 					<TaskList 
@@ -50,6 +53,7 @@ class App extends Component {
 }
 
 function select(state) {
+	console.log(state, 'current state');
 	return {
 		habits: state.tasks.filter(task => task.type === 'habit'),
 		dailies: state.tasks.filter(task => task.type === 'daily'),
