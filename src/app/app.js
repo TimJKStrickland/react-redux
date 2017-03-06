@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTasks, completeTask } from './actions';
 import TaskList from './tasklist';
-import Header from './header';
 
 class App extends Component {
 	
@@ -16,7 +15,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		const { dispatch } =this.props;
+		const { dispatch } = this.props;
 
 		dispatch(fetchTasks());
 	}
@@ -28,7 +27,6 @@ class App extends Component {
 
 		return(
 			<div className="container">
-				<Header/>
 				<section>
 					<h3>Habits</h3>
 					<TaskList 

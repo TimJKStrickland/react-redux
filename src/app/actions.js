@@ -5,7 +5,7 @@ export const RECEIVE_TASKS = 'RECEIVE_TASKS';
 export const ADD_TASK = 'ADD_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 
-import { uuId, apiToken } from './configure';
+import { uuId, apiToken } from './config';
 
 
 export function fetchTasks(){
